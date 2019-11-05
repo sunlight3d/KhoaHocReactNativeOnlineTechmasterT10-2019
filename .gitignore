@@ -1,5 +1,7 @@
 *.PNG
 video
+Pods/
+Pods
 video/
 *.png
 *.jpg
