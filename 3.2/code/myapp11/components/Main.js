@@ -9,7 +9,6 @@ export default class Main extends Component{
         //alert("6 plus 4 = "+sum(6,4))//press Cmd/Ctrl+S to save and reload
         //console.log("6 plus 4 = "+sum(6,4))
         //do2Tasks()
-        alert("xx")
     }
     render(){
         const rect1 = new Rectangle(0, 0, 100, 200)
