@@ -4,13 +4,14 @@ import { View, Text,SafeAreaView, StyleSheet,
  } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+
 import Feather from 'react-native-vector-icons/Feather'
 import LinearGradient from 'react-native-linear-gradient'
 import {Header} from './Header'
 import {COLOR_RED} from './colors'
 import Svg, {
-    Circle,
-    Polyline,
+    Circle,    
     Path,
   } from 'react-native-svg'
 
@@ -25,7 +26,7 @@ export default class DetailSong extends React.Component {
         alert("Press back")
     }
     componentDidMount() {
-        drawBezierCurve()
+        
     }
     render() {
         const {isPlaying} = this.state
@@ -65,7 +66,7 @@ export default class DetailSong extends React.Component {
                             onPress = {() => {
                                 this.setState({isPlaying: !isPlaying})
                             }}                           
-                            size={60} color={COLOR_RED}
+                            size={60} color={COLOR_RED}                                                     
                             style={{ padding: 8 }}
                         />        
                         <Feather name="skip-forward"                            
@@ -73,33 +74,59 @@ export default class DetailSong extends React.Component {
                             style={{ padding: 8 }}
                         />        
                     </View>     
-                    <Svg height="50%" width="100%" viewBox="0 0 300 100">                        
-                        {/* <Path d={`
-                            M ${startPoint}
-                            Q ${controlPoint} ${endPoint}                            
-                        `} strokeWidth = {2} stroke={COLOR_RED} fill="none"/> */}
+                    <Svg style={{width: '100%', height: 260}} viewBox="0 0 300 100">                                            
                         {drawBezierCurve()}
-                    </Svg>           
+                    </Svg>   
+                    <View style={{
+                                width: '100%',
+                                height: 50,
+                                flexDirection: 'row'}}>
+                        <View style={styles.viewLeft}>                            
+                            <MaterialCommunityIcons name="folder-plus"                            
+                                size={25} color={"white"}
+                                style={{ padding: 8 }}
+                            />
+                            <MaterialCommunityIcons name="share-variant"                            
+                                size={25} color={"white"}
+                                style={{ padding: 8 }}
+                            />                            
+                            <MaterialCommunityIcons name="heart-outline"                            
+                                size={25} color={"white"}
+                                style={{ padding: 8 }}
+                            />                            
+                        </View>    
+                        <View style={styles.viewRight}>
+                            <MaterialCommunityIcons name="reply"                            
+                                size={25} color={"white"}
+                                style={{ padding: 8 }}
+                            />
+                            <FontAwesome5 name="random"                            
+                                size={25} color={"white"}
+                                style={{ padding: 8 }}
+                            />
+                        </View>           
+                    </View>        
             </LinearGradient>
         </SafeAreaView>
     }
 }
-const drawBezierCurve = (color) => {
-    //create random values
-    const d1 = `
-            M ${[0, 0]}
-            S ${[60,80]} ${[135,0]}
-            S ${[180,60]} ${[220,50]}
-            S ${[250,0]} ${[300,20]}
-        `
-    const path1 = <Path d={d1} strokeWidth = {1} stroke={COLOR_RED} fill="none" />
-    const d2 = `
-            M ${[0, 10]}
-            S ${[70,60]} ${[115,0]}
-            S ${[170,70]} ${[210,50]}
-            S ${[250,0]} ${[300,10]}
-        `
-    const path2 = <Path d={d2} strokeWidth = {1} stroke={"white"} fill="none" opacity={0.6}/>
+const drawBezierCurve = () => {
+    //M = Move To, S = curve(SPline) To
+    const d1 =`
+        M ${[0,0]}
+        S ${[60, 80]} ${[135, 0]}
+        S ${[180,60]} ${[220,50]}
+        S ${[250,0]} ${[300,20]}
+    `
+    const path1 = <Path d = {d1} strokeWidth={1} stroke={COLOR_RED} fill="none"/>
+    const d2 =`
+        M ${[0,10]}
+        S ${[70, 60]} ${[115, 0]}
+        S ${[170,70]} ${[210,50]}
+        S ${[250,0]} ${[300,10]}
+    `
+    const path2 = <Path d = {d2} strokeWidth={1} stroke={"white"} opacity={0.7} fill="none"/>
+
     return [path1, path2]
 }
 
@@ -133,5 +160,19 @@ const styles = StyleSheet.create({
         fontSize: 17, 
         fontFamily: 'Helvetica',
         padding: 3
+    },
+    viewLeft: {
+        width: '50%',        
+        flexDirection: 'row',
+        alignItems: 'center',
+        
+    },
+    viewRight: {
+        width: '50%',        
+        flexDirection: 'row',
+        justifyContent:'flex-end',
+        alignItems: 'center',
+        paddingRight: 8,        
     }
+
 })
